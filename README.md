@@ -26,7 +26,7 @@ Get ip
         public function index(Request $request)
         {
             $data = $this->carian($request)
-            ->where('cawangan_id',auth()->user()->cawangan_id)
+            ->where('office_id',auth()->user()->office_id)
             ->paginate(10);
 
                 return view('users.index',compact('data'))
@@ -50,4 +50,20 @@ Get ip
             }
 
             return $data;
+        }
+        
+Eloquent GroupBy Report
+        
+        public function index()
+        {
+                $bil_cawangan = $this->statistik_cawangan()->get()->pluck('penerangan','user_count');
+                return view('home',compact('users','bil_cawangan'));
+        }
+        
+        public function statistik_cawangan()
+        {
+                return DB::table('users')
+                         ->select(DB::raw('ref_table.penerangan, count(*) as user_count'))
+                         ->join('ref_table', 'users.cawangan_id', '=', 'ref_table.id')
+                         ->groupBy('ref_table.penerangan')->orderBy('user_count','DESC');
         }
