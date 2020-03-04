@@ -69,3 +69,12 @@ Eloquent GroupBy Report
                          ->join('ref_table', 'users.cawangan_id', '=', 'ref_table.id')
                          ->groupBy('ref_table.penerangan')->orderBy('user_count','DESC');
         }
+        
+Eloquent find user DoesntHave record in other table and with status count
+                
+                $users = User::where('cawangan_id',auth()->user()->cawangan_id)
+                    ->whereDoesntHave('table_x', function(Builder $query) {
+                        $query->where('status_id',1)
+                        ->havingRaw('COUNT(status_id) > 0');
+                        
+
