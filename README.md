@@ -98,3 +98,83 @@ Abort if user doesnt meet the condition. Ex: block user from access others users
                              return $this->id != $owner;
                         }
                 }
+                
+                
+
+LARAVEL BLADE SYNTAX
+
+                <strong>Name:</strong>
+                {!! Form::text('field_name', null, array('placeholder' => 'field_name','class' => 'form-control' . ($errors->has('field_name') ? ' is-invalid' : null) )) !!}
+                @if ($errors->has('field_name'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('field_name') }}</strong>
+                </div>
+                @endif
+
+                <strong>Country:</strong>
+                {!! Form::select('country_list', $ref_table->pluck('nama','id'),null,['class' => 'form-control'. ($errors->has('country_list') ? ' is-invalid' : null) ,'placeholder' => 'Choose country...']); !!}
+                @if ($errors->has('country_list'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('country_list') }}</strong>
+                </div>
+                @endif
+
+
+                <strong>Password:</strong>
+                {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control' . ($errors->has('password') ? ' is-invalid' : null) )) !!}
+                @if ($errors->has('password'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </div>
+                @endif
+                <strong>Confirm Password:</strong>
+                {!! Form::password('password_confirmation', array('placeholder' => 'Confirm Password','class' => 'form-control'. ($errors->has('password_confirmation') ? ' is-invalid' : null) )) !!}
+                @if ($errors->has('password_confirmation'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('password_confirmation') }}</strong>
+                </div>
+                @endif
+
+
+                <strong>Tarikh lahir:</strong>
+                {!! Form::text('tarikh_lahir', null, array('placeholder' => 'Tarikh lahir','class' => 'form-control datemask'. ($errors->has('roles') ? ' is-invalid' : null) )) !!}
+                @if ($errors->has('tarikh_lahir'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('tarikh_lahir') }}</strong>
+                </div>
+                @endif
+
+                <strong>Alamat:</strong>
+                {!! Form::textarea('alamat', null, array('placeholder' => 'Alamat','class' => 'form-control'. ($errors->has('alamat') ? ' is-invalid' : null) )) !!}
+                @if ($errors->has('alamat'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('alamat') }}</strong>
+                </div>
+                @endif
+
+
+                <script>
+                    $(document).ready(function() {
+                        //need to include related script such as jquery,select,inputmask,bootstrapDualListbox
+
+                        //select2
+                        $('.selectComponent').select2();
+                        //Datemask dd/mm/yyyy
+                        $('.datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
+                        //adminlte 3 default collapse card 
+                        $('#login-akaun').CardWidget('collapse');
+                        //adminlte 3 default collapse card 
+                        $('#maklumat-tambahan').CardWidget('collapse');
+                        //alternative for select2. More convinient to select record
+                        $("#user_id").bootstrapDualListbox();
+
+                        //show filename after select file
+                            $('input[type="file"]').change(function(e){
+                                    var fileName = e.target.files[0].name;
+                                    alert('The file "' + fileName +  '" has been selected.');
+                                    var $this = $(this);
+                                    $this.next().html($this.val().split('\\').pop());
+                                });
+
+                    });
+                </script>
