@@ -78,3 +78,23 @@ Eloquent find user DoesntHave record in other table and with status count
                         ->havingRaw('COUNT(status_id) > 0');
                         
 
+Abort if user doesnt meet the condition. Ex: block user from access others users information
+                
+                public function show(KadAhli $kadAhli)
+                {
+                        ...
+                        abort_if(auth()->user()->sekat($kad_owner,$cawangan_id_kad_owner),403);
+                        ...
+                }
+                
+                //in Model
+                public function sekat($owner,$cawangan_id)
+                {
+                        if ($this->hasRole('Admin')) {
+                             return $this->cawangan_id != $cawangan_id;
+                        }
+
+                        if ($this->hasRole('User')) {
+                             return $this->id != $owner;
+                        }
+                }
