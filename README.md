@@ -80,7 +80,7 @@ Eloquent find user DoesntHave record in other table and with status count
 
 Abort if user doesnt meet the condition. Ex: block user from access others users information
                 
-                public function show(KadAhli $kadAhli)
+                public function show(Staff $Staff)
                 {
                         ...
                         abort_if(auth()->user()->sekat($kad_owner,$cawangan_id_kad_owner),403);
