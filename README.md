@@ -53,6 +53,8 @@ Get ip
         }
         
 Eloquent GroupBy Report
+
+        use Illuminate\Support\Facades\DB;
         
         public function index()
         {
