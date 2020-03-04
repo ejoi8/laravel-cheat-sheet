@@ -23,9 +23,15 @@ Get ip
 
 == Search function ==
    
-        $data = $this->carian($request)
-              ->where('cawangan_id',auth()->user()->cawangan_id)
-              ->paginate(10);
+        public function index(Request $request)
+        {
+            $data = $this->carian($request)
+            ->where('cawangan_id',auth()->user()->cawangan_id)
+            ->paginate(10);
+
+                return view('users.index',compact('data'))
+                    ->with('i', ($request->input('page', 1) - 1) * 5);
+        }
 
         public function carian($request)
         {
