@@ -179,7 +179,7 @@ LARAVEL BLADE SYNTAX
                     });
                 </script>
 
-Create Laravel logs Traits
+Create Laravel logs Traits (create inside app/IzzulTraits/helper.php)
 
                 <?php 
 
@@ -214,3 +214,4 @@ Create Laravel logs Traits
                 
                 // add use App\IzzulTraits\helper; in controller
                 // add use helper; in the controller class
+                // dont forget to dump autoload
