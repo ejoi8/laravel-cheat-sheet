@@ -178,3 +178,39 @@ LARAVEL BLADE SYNTAX
 
                     });
                 </script>
+
+Create Laravel logs Traits
+
+                <?php 
+
+                namespace App\IzzulTraits;
+
+                trait helper
+                {
+                        public function logfile($array_data)
+                        {
+
+                                //DATE
+                                $TarikhLog = date("d-m-Y [h:i:s A]");
+                                $day = substr($TarikhLog, 0, 2);
+                                $month = substr($TarikhLog, 3,2);
+                                $year = substr($TarikhLog, 6, 4);
+                                //IP
+                                $ip = $_SERVER['REMOTE_ADDR'];
+                                //Text Log File
+                                $myFile = "$year-$month.log";
+                                $fh = fopen($myFile, 'a') or die("can't open file");
+                                // $stringData = " \n";
+                                $stringData = "$year-$month-$day|$TarikhLog|$ip";
+                                foreach ($array_data as $data) {
+                                        $stringData = $stringData."|" .$data; 
+                                }
+                                $stringData = $stringData."\n";
+
+                                fwrite($fh, $stringData);
+                                fclose($fh);
+                        }
+                }
+                
+                // add use App\IzzulTraits\helper; in controller
+                // add use helper; in the controller class
