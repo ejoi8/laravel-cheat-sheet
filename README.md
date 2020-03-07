@@ -212,6 +212,7 @@ Create Laravel logs Traits (create inside app/IzzulTraits/helper.php)
                         }
                 }
                 
-                // add use App\IzzulTraits\helper; in controller
-                // add use helper; in the controller class
-                // dont forget to dump autoload
+                // add in controller: use App\IzzulTraits\helper; 
+                // add in the controller class: use helper; 
+                // dont forget to: composer dump autoload
+                // call inside controller function: $this->logfile([$request->email,'login']);
