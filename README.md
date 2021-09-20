@@ -1,4 +1,4 @@
-# laravel-cheat-sheet
+# Laravel Cheat Sheet
 
 Get auth user name/id
 
@@ -433,3 +433,78 @@ Download Excel (csv)
                     });
                 }
             });
+            
+            
+# Infyom Laravel CRUD Generator
+
+Generate field from json file
+        
+        php artisan infyom:scaffold $MODEL_NAME --fieldsFile=filename.json
+        
+        
+        {
+          "name": "name",
+          "dbType": "string,255:nullable",
+          "htmlType": "text",
+          "validations": "required|min:3",
+          "searchable": true,
+          "fillable": true,
+          "primary": false,
+          "inForm": true,
+          "inIndex": true,
+          "inView": true
+        },
+        {
+          "name": "nokp",
+          "dbType": "string,255:nullable",
+          "htmlType": "text",
+          "validations": "required|min:8|max:12",
+          "searchable": true,
+          "fillable": true,
+          "primary": false,
+          "inForm": true,
+          "inIndex": true,
+          "inView": true
+        },
+        {
+          "name": "email",
+          "dbType": "string,255:nullable",
+          "htmlType": "text",
+          "validations": "required|email",
+          "searchable": true,
+          "fillable": true,
+          "primary": false,
+          "inForm": true,
+          "inIndex": true,
+          "inView": true
+        },
+        {
+          "name": "status_id",
+          "dbType": "integer:unsigned:foreign,statuses,id",
+          "htmlType": "selectTable:statuses:nama,id",
+          "relation": "mt1,statuses,status_code,id"
+        },
+        {
+          "name": "date",
+          "dbType": "datetime:nullable",
+          "htmlType": "date",
+          "validations": "required",
+          "searchable": true,
+          "fillable": true,
+          "primary": false,
+          "inForm": true,
+          "inIndex": true,
+          "inView": true
+        },
+        {
+          "name": "attachment_1",
+          "dbType": "string,255:nullable",
+          "htmlType": "file",
+          "validations": "required|mimes:jpeg,bmp,png,pdf|size:5000",
+          "searchable": true,
+          "fillable": true,
+          "primary": false,
+          "inForm": true,
+          "inIndex": true,
+          "inView": true
+        },
