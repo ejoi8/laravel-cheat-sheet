@@ -495,7 +495,8 @@ Upload multiple file controller
 
 Generate field from json file. Save in resources/model_schemes/filename.json
         
-        php artisan infyom:scaffold $MODEL_NAME --fieldsFile=filename.json
+        # choose which generator want to skip.
+        php artisan infyom:scaffold $MODEL_NAME --fieldsFile=Semakan.json --skip=migration,model,controllers,api_controller,scaffold_controller,scaffold_requests,routes,api_routes,scaffold_routes,views,tests,menu,dump,autoload
         
         {
           "name": "name",
