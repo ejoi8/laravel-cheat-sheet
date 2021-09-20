@@ -448,15 +448,43 @@ Upload file index
             <button type="submit" class="btn btn-primary btn-round btn-lg">Hantar</button>
         </form>
         
-Upload file controller
+Upload sigle file controller
         
+        $user = User::create($input);
         if ($request->hasFile('attachment')) {
-            $lampiran = $request->file('attachment')->getClientOriginalName();
-            $namafile = date("Y_m_d_H_i_s").'.'.$request->lampiran->clientExtension();
-            $nama_lampiran = $request->file('attachment')->storeAs('attachment',$namafile);
-
-            $permohonanKematian->update(['attachment' => $attachment]);
+            $file_extension = $request->file('attachment')->getClientOriginalName();
+            $file_name = date("Ymd_His").'.'.$file_extension;
+            $attachment_name = $request->file('attachment')->storeAs('folder_name',$file_name);
+            $user->update(['attachment' => $attachment_name]);
         }
+        
+Upload multiple file controller
+        
+        # declare in model & call static function in controller. Ex: $attachments = $MODEL_NAME::$attachments;
+        $attachments = [
+          'attachment_1',
+          'attachment_2',
+          'attachment_3',
+          'attachment_4',
+          'attachment_5',
+          'attachment_6',
+          'attachment_7',
+        ];
+
+        $user = User::create($input);
+        public function uploadAttachment($request,$attachments,$bantuanKematian)
+        {
+          foreach ($attachments as $attachment) {
+            if ($request->hasFile($attachment)) {
+                $file_extension = $request->file($attachment)->getClientOriginalName();
+                $file_name = date("Ymd_His").'-'.$attachment.'-'.$created_object->id.'.'.$file_extension;
+                $dir_file = $request->file($attachment)->storeAs('foldername',$file_name);
+                $created_object->update([$attachment => $dir_file]);
+            }
+          }
+
+        }
+        
 ---  
             
 # Infyom Laravel CRUD Generator
