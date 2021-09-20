@@ -2,9 +2,8 @@
 
 Get auth user name/id
 
-        auth()->user()->name;
-
-
+        auth()->user()->name;  
+        
         auth()->user()->id;
 
 Get auth user role
