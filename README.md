@@ -1,8 +1,11 @@
 # Laravel Cheat Sheet
 
-Get auth user name/id
+Get auth user name/id - option 1
 
         auth()->user()->name;  
+
+Get auth user name/id- option 2
+
         auth()->user()->id;
 
 Get auth user role
@@ -515,17 +518,25 @@ Generate field from json file
         },
 
 Generate New module from existing table without datatable
+https://infyom.com/open-source/laravelgenerator/docs/8.0/generator-options
 
-        # https://infyom.com/open-source/laravelgenerator/docs/8.0/generator-options
-        
+sample 1
+
         php artisan infyom:scaffold $MODEL_NAME --fromTable --tableName=users  --datatables=false --paginate=10 --skip=model --ignoreFields=password,remember_token
+        
+sample 2
+
         php artisan infyom:scaffold $MODEL_NAME --datatables=false --paginate=10
         
 Generate New module from existing table with datatable
-        
-        # https://infyom.com/open-source/laravelgenerator/docs/8.0/generator-options
-        
+https://infyom.com/open-source/laravelgenerator/docs/8.0/generator-options
+
+sample 1
+
         php artisan infyom:scaffold $MODEL_NAME --fromTable --tableName=users  --datatables=true --ignoreFields=password,remember_token
+
+sample 2
+        
         php artisan infyom:scaffold $MODEL_NAME --datatables=true
         
 Option during create new table
