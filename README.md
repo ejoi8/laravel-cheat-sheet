@@ -439,7 +439,25 @@ Download Excel (csv)
                     });
                 }
             });
-            
+
+---
+Upload file index
+        
+        <form method="POST" action="#" enctype="multipart/form-data">
+            <input type="file" name="attachment">
+            <button type="submit" class="btn btn-primary btn-round btn-lg">Hantar</button>
+        </form>
+        
+Upload file controller
+        
+        if ($request->hasFile('attachment')) {
+            $lampiran = $request->file('attachment')->getClientOriginalName();
+            $namafile = date("Y_m_d_H_i_s").'.'.$request->lampiran->clientExtension();
+            $nama_lampiran = $request->file('attachment')->storeAs('attachment',$namafile);
+
+            $permohonanKematian->update(['attachment' => $attachment]);
+        }
+---  
             
 # Infyom Laravel CRUD Generator
 
