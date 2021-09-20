@@ -473,8 +473,9 @@ Upload multiple file controller
         ];
 
         $user = User::create($input);
-        public function uploadAttachment($request,$attachments,$created_object,$foldername="attachment")
+        public function uploadAttachment($request,$attachments,$created_object)
         {
+          $foldername = date("Ym");
           foreach ($attachments as $attachment) {
             if ($request->hasFile($attachment)) {
                 $original_file_name = $request->file($attachment)->getClientOriginalName();
@@ -486,7 +487,7 @@ Upload multiple file controller
             }
           }
 
-         }
+        }
         
 ---  
             
