@@ -452,7 +452,8 @@ Upload sigle file controller
         
         $user = User::create($input);
         if ($request->hasFile('attachment')) {
-            $file_extension = $request->file('attachment')->getClientOriginalName();
+            $original_file_name = $request->file('attachment')->getClientOriginalName();
+            $file_extension = $request->file('attachment')->clientExtension();
             $file_name = date("Ymd_His").'.'.$file_extension;
             $attachment_name = $request->file('attachment')->storeAs('folder_name',$file_name);
             $user->update(['attachment' => $attachment_name]);
@@ -472,18 +473,20 @@ Upload multiple file controller
         ];
 
         $user = User::create($input);
-        public function uploadAttachment($request,$attachments,$bantuanKematian)
+        public function uploadAttachment($request,$attachments,$created_object,$foldername="attachment")
         {
           foreach ($attachments as $attachment) {
             if ($request->hasFile($attachment)) {
-                $file_extension = $request->file($attachment)->getClientOriginalName();
-                $file_name = date("Ymd_His").'-'.$attachment.'-'.$created_object->id.'.'.$file_extension;
-                $dir_file = $request->file($attachment)->storeAs('foldername',$file_name);
+                $original_file_name = $request->file($attachment)->getClientOriginalName();
+                $file_extension = $request->file($attachment)->clientExtension();
+                $fileName = date("Ymd_His").'-'.$attachment.'-'.$created_object->id.'.'.$file_extension;
+                $dir_file = $request->file($attachment)->storeAs($foldername,$fileName);
+
                 $created_object->update([$attachment => $dir_file]);
             }
           }
 
-        }
+         }
         
 ---  
             
