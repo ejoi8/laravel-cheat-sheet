@@ -495,8 +495,8 @@ Upload multiple file controller
 
 Generate field from json file. Save in resources/model_schemes/filename.json
         
-        # choose which generator want to skip.
-        php artisan infyom:scaffold Semakan --fieldsFile=Semakan.json --skip=views,controllers,model,routes,migration,api_controller,scaffold_controller,scaffold_requests,api_routes,scaffold_routes,tests,menu,dump,autoload
+        # choose which generator want to skip. https://infyom.com/open-source/laravelgenerator/docs/8.0/generator-options#skip-file-generation
+        php artisan infyom:scaffold Semakan --fieldsFile=Semakan.json --skip=views,model,migration,scaffold_controller,scaffold_routes,menu,dump-autoload,api_controller,scaffold_requests,api_routes,tests
         
         {
           "name": "name",
