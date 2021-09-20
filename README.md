@@ -216,3 +216,220 @@ Create Laravel logs Traits (create inside app/IzzulTraits/helper.php)
                 // add in the controller class: use helper; 
                 // dont forget to: composer dump autoload
                 // call inside controller function: $this->logfile([$request->email,'login']);
+                
+Create table
+
+    php artisan make:migration create_users_table --create=users 
+    OR
+    php artisan make:model -m Users <-- auto create migration & model.
+    
+Add column to existing table
+
+    php artisan make:migration add_votes_to_users_table --table=users
+    
+
+Rollback/refresh spesifik table
+
+    php artisan migrate:refresh --path=/database/migrations/fileName.php
+    
+Inside the generated file:
+
+    public function up()  
+    {  
+            Schema::table('users', function (Blueprint $table) {  
+                    $table->string('profile')->nullable();  
+            });  
+    }  
+    public function down()  
+    {  
+            Schema::table('users', function (Blueprint $table) {  
+                    $table->dropColumn(['profile']);  
+            });  
+    }
+    
+SAMPLE IF SET FOREIGN KEY ON EXISTIN TABLE
+
+        /**
+         * Run the migrations.
+         *
+         * @return void
+         */
+        public function up()
+        {
+            Schema::disableForeignKeyConstraints();
+            Schema::table('user', function (Blueprint $table) {
+                $table->unsignedInteger('user_id')->after('user_id')->default('1');
+
+                $table->foreign('user_id')
+                        ->references('id')->on('user_category')
+                        ->onDelete('cascade');
+            });
+        }
+
+        /**
+         * Reverse the migrations.
+         *
+         * @return void
+         */
+        public function down()
+        {
+            Schema::table('user', function (Blueprint $table) {
+                $table->dropForeign('user_user_id_foreign');
+                $table->dropColumn(['user_id']);
+            });
+        }
+        
+SAMPLE DROP COLUMN CONTAIN FOREIGN KEY
+
+        /**
+         * Run the migrations.
+         *
+         * @return void
+         */
+        public function up()
+        {
+            Schema::table('kad_ahlis', function (Blueprint $table) {
+                $table->dropForeign('kad_ahlis_status_id_foreign'); 
+                $table->dropForeign('kad_ahlis_last_updated_by_foreign'); 
+                $table->dropColumn(['nota','bukti_bayaran','status_id','last_updated_by']);
+            });
+        }
+
+        /**
+         * Reverse the migrations.
+         *
+         * @return void
+         */
+        public function down()
+        {
+            Schema::disableForeignKeyConstraints();
+            Schema::table('kad_ahlis', function (Blueprint $table) {
+                $table->text('nota');
+                $table->text('bukti_bayaran');
+                $table->unsignedBigInteger('status_id');
+                $table->unsignedBigInteger('last_updated_by');
+
+                $table->foreign('status_id')
+                        ->references('id')->on('ref_statuses')
+                        ->onDelete('cascade');
+
+                $table->foreign('last_updated_by')
+                        ->references('id')->on('users')
+                        ->onDelete('cascade');
+            });
+        }
+        
+MAKE NULLABLE
+
+         /**
+         * Run the migrations.
+         *
+         * @return void
+         */
+        public function up()
+        {
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('email')->nullable()->change();
+            });
+        }
+
+        /**
+         * Reverse the migrations.
+         *
+         * @return void
+         */
+        public function down()
+        {
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('email')->change();
+            });
+        }
+
+Clear all cache memory
+
+    php artisan cache:clear  
+    php artisan config:clear
+    php artisan config:cache  
+    php artisan view:clear 
+    
+Download Excel (csv)
+
+            $array_data = array();
+            $myFile = public_path('location/folder')."/download".date("Y_m_d_H_i_s").".csv"; //save in folder.
+            $fh = fopen($myFile, 'a') or die("can't open file");
+            $stringData = "";
+            foreach ($array_data as $data_column) {
+                $stringData = $stringData.$data_column[0].",".$data_column[1].",".$data_column[2].",".$data_column[3]"\n"; 
+            }
+            $stringData = $stringData."\nTarikh muat turun: ".date("Y-m-d H:i:s");
+
+            fwrite($fh, $stringData);
+            fclose($fh);
+
+            //download EXCEL (CSV)
+            if (file_exists($myFile)) {
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename='.basename($myFile));
+                header('Content-Transfer-Encoding: binary');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate');
+                header('Pragma: public');
+                header('Content-Length: ' . filesize($myFile));
+                ob_clean();
+                flush();
+                readfile($myFile);
+                unlink($myFile); //delete file
+                exit;
+            }
+
+        Ajax request
+
+         //controller
+         public function find_cawangan_kecil(Request $request)
+        {
+            if ($request->has('cawangan_id')) {
+                $cawangan_kecil = ref_cawangan_kecil::where('cawangan_id',$request->cawangan_id)->get();
+                return $cawangan_kecil->pluck('penerangan','id');
+            }
+
+        }
+
+        {{-- html component: change the cawangan list to populate the cawangan kecil  --}}
+        <strong>Cawangan:</strong>
+        {!! Form::select('cawangan_id', $ref_cawangan->pluck('nama','id'),null,['class' => 'form-control selectComponent dynamic'. ($errors->has('cawangan_id') ? ' is-invalid' : null) ,'placeholder' => 'Pilih jabatan...', 'id' => 'cawangan']); !!}
+
+
+        <strong>Cawangan kecil:</strong>
+        <select class="form-control selectComponent {{ ($errors->has('cawangan_kecil_id') ? ' is-invalid' : null) }}" name="cawangan_kecil_id" id="cawangan_kecil" placeholder="SILA PILIH CAWANGAN"><option>--Sila Pilih--</option></select>
+
+        //script section
+        $(".container").on('change','#cawangan',function() {
+                if($(this).val() != ''){
+                $.ajax({
+                        type: "GET",
+                        // dataType: "html",
+                        url: "{{ route('request.find_cawangan_kecil') }}",
+                        data: {'cawangan_id': $("#cawangan").val() },
+                        beforeSend: function(){
+                             // $("#loading").show();
+                           },
+                        success: function(response) 
+                        {    
+                            // $("#loading").hide();   
+                            console.log(response);
+                            $("#cawangan_kecil").empty();
+                            $("#cawangan_kecil").append('<option>--Sila Pilih Cawangan Kecil--</option>');
+                            if(response)
+                            {
+                                $.each(response,function(key,value){
+                                    $('#cawangan_kecil').append($("<option/>", {
+                                       value: key,
+                                       text: value
+                                    }));
+                                });
+                            }
+                        }
+                    });
+                }
+            });
