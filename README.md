@@ -1,11 +1,8 @@
 # Laravel Cheat Sheet
 
-Get auth user name/id - option 1
+Get auth user name/id
 
-        auth()->user()->name;  
-
-Get auth user name/id- option 2
-
+        auth()->user()->name;
         auth()->user()->id;
 
 Get auth user role
@@ -446,7 +443,7 @@ Download Excel (csv)
             
 # Infyom Laravel CRUD Generator
 
-Generate field from json file
+Generate field from json file. Save in resources/model_schemes/filename.json
         
         php artisan infyom:scaffold $MODEL_NAME --fieldsFile=filename.json
         
@@ -518,30 +515,23 @@ Generate field from json file
         },
 
 Generate New module from existing table without datatable
-https://infyom.com/open-source/laravelgenerator/docs/8.0/generator-options
 
-sample 1
-
-        php artisan infyom:scaffold $MODEL_NAME --fromTable --tableName=users  --datatables=false --paginate=10 --skip=model --ignoreFields=password,remember_token
+        # https://infyom.com/open-source/laravelgenerator/docs/8.0/generator-options
         
-sample 2
-
+        php artisan infyom:scaffold $MODEL_NAME --fromTable --tableName=users  --datatables=false --paginate=10 --skip=model --ignoreFields=password,remember_token
         php artisan infyom:scaffold $MODEL_NAME --datatables=false --paginate=10
         
 Generate New module from existing table with datatable
-https://infyom.com/open-source/laravelgenerator/docs/8.0/generator-options
 
-sample 1
+        # https://infyom.com/open-source/laravelgenerator/docs/8.0/generator-options
 
         php artisan infyom:scaffold $MODEL_NAME --fromTable --tableName=users  --datatables=true --ignoreFields=password,remember_token
-
-sample 2
-        
         php artisan infyom:scaffold $MODEL_NAME --datatables=true
         
 Option during create new table
 
         # https://labs.infyom.com/laravelgenerator/docs/5.3/fields-input-guide
+        
         name string text
         description string:nullable textarea
         attachment1 string:nullable file
@@ -550,5 +540,55 @@ Option during create new table
         # select from existing table
         # selectTable:tableName:column1,column2
         # Note:where column1 is Option Label and column2 is Option Value
+        
         selectTable:users:name,id
         selectTable:categories:title,id
+        
+## Date filtering in Datatable index page
+___
+
+resources/MODULE_FOLDER_NAME/index.blade.php
+
+        <input type="date" id="min" name="min" class="form-control">
+        <input type="date" id="max" name="max" class="form-control">
+        <input type="submit" id="generate" class="btn btn-primary">
+
+resources/MODULE_FOLDER_NAME/table.php
+
+        $(document).ready(function() {
+
+            // DataTables initialisation
+            var table = window.LaravelDataTables["dataTableBuilder"];
+
+            table.on('preXhr.dt',function(e,settings,data){
+                data.min = $('#min').val();
+                data.max = $('#max').val();
+            }); 
+
+            // Event listener to the two range filtering inputs to redraw on input
+            $('#generate').click( function(e) {
+                table.ajax.reload();
+                e.preventDefault();
+            } );
+
+        });
+        
+app/datatables/ModuleDatatables.php
+
+        public function query(Posts $model)
+        {
+            $kuiri = $model->newQuery();
+
+            if(!is_null(request()->min)) {
+                $kuiri->where('created_date', '>=', request()->min);
+            }
+
+            if(!is_null(request()->max)) {
+                $kuiri->where('created_date', '<=', request()->max);
+            }
+
+                return $kuiri;
+        }
+___   
+
+
