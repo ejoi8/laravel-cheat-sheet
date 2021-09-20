@@ -21,7 +21,7 @@ Get ip
 
         \Request::ip();
 
-== Search function ==
+Search function
    
         public function index(Request $request)
         {
@@ -151,6 +151,12 @@ LARAVEL BLADE SYNTAX
                     <strong>{{ $errors->first('alamat') }}</strong>
                 </div>
                 @endif
+                
+                <select class="form-control" id="filter_status" name="filter_status">
+                    @foreach($statuses as $status)
+                        <option value="{{ $status }}">{{ $status }}</option>
+                    @endforeach
+                </select>
 
 
                 <script>
@@ -508,3 +514,27 @@ Generate field from json file
           "inIndex": true,
           "inView": true
         },
+
+Generate New module from existing table without datatable
+        
+        php artisan infyom:scaffold $MODEL_NAME --fromTable --tableName=users  --datatables=false --paginate=10 --skip=model --ignoreFields=password,remember_token
+        php artisan infyom:scaffold $MODEL_NAME --datatables=false --paginate=10
+        
+Generate New module from existing table with datatable
+        
+        php artisan infyom:scaffold $MODEL_NAME --fromTable --tableName=users  --datatables=true --ignoreFields=password,remember_token
+        php artisan infyom:scaffold $MODEL_NAME --datatables=true
+        
+Option during create new table
+
+        # https://labs.infyom.com/laravelgenerator/docs/5.3/fields-input-guide
+        name string text
+        description string:nullable textarea
+        attachment1 string:nullable file
+        date datetime:nullable file
+        
+        # select from existing table
+        # selectTable:tableName:column1,column2
+        # Note:where column1 is Option Label and column2 is Option Value
+        selectTable:users:name,id
+        selectTable:categories:title,id
