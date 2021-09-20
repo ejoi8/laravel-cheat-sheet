@@ -447,7 +447,6 @@ Generate field from json file
         
         php artisan infyom:scaffold $MODEL_NAME --fieldsFile=filename.json
         
-        
         {
           "name": "name",
           "dbType": "string,255:nullable",
@@ -516,11 +515,15 @@ Generate field from json file
         },
 
 Generate New module from existing table without datatable
+
+        # https://infyom.com/open-source/laravelgenerator/docs/8.0/generator-options
         
         php artisan infyom:scaffold $MODEL_NAME --fromTable --tableName=users  --datatables=false --paginate=10 --skip=model --ignoreFields=password,remember_token
         php artisan infyom:scaffold $MODEL_NAME --datatables=false --paginate=10
         
 Generate New module from existing table with datatable
+        
+        # https://infyom.com/open-source/laravelgenerator/docs/8.0/generator-options
         
         php artisan infyom:scaffold $MODEL_NAME --fromTable --tableName=users  --datatables=true --ignoreFields=password,remember_token
         php artisan infyom:scaffold $MODEL_NAME --datatables=true
