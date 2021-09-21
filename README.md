@@ -642,4 +642,130 @@ app/datatables/ModuleDatatables.php
         }
 ___   
 
+# Larvel Collective
 
+        
+        {{-- generate token --}}
+        {!! Form::token() !!}
+Text Field
+
+        <!-- Text Field -->
+        <div class="form-group col-sm-6">
+            {!! Form::label('text', 'Text:') !!}
+            {!! Form::text('text', null, ['class' => 'form-control']) !!}
+        </div>
+Email
+
+        <!-- Email Field -->
+        <div class="form-group col-sm-6">
+            {!! Form::label('email', 'Email:') !!}
+            {!! Form::email('email', null, ['class' => 'form-control']) !!}
+        </div>
+Number
+
+        <!-- Number Field -->
+        <div class="form-group col-sm-6">
+            {!! Form::label('number', 'Number:') !!}
+            {!! Form::number('number', null, ['class' => 'form-control']) !!}
+        </div>
+Date
+
+        <!-- Date Field -->
+        <div class="form-group col-sm-6">
+            {!! Form::label('date', 'Date:') !!}
+            {!! Form::text('date', null, ['class' => 'form-control','id'=>'date']) !!}
+        </div>
+
+        @push('page_scripts')
+            <script type="text/javascript">
+                $('#date').datetimepicker({
+                    format: 'YYYY-MM-DD HH:mm:ss',
+                    useCurrent: true,
+                    sideBySide: true
+                })
+            </script>
+        @endpush
+Date now
+
+        <!-- Date NowField -->
+        <div class="form-group col-sm-6">
+            {!! Form::label('date', 'Date Now carbon:') !!}
+            {!! Form::date('date', \Carbon\Carbon::now(),['class' => 'form-control','id'=>'date']) !!}
+        </div>
+File
+
+        <!-- File Field -->
+        <div class="form-group col-sm-6">
+            {!! Form::label('file', 'File:') !!}
+            <div class="input-group">
+                <div class="custom-file">
+                    {!! Form::file('file', ['class' => 'custom-file-input']) !!}
+                    {!! Form::label('file', 'Choose file', ['class' => 'custom-file-label']) !!}
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+Password
+
+        <!-- Password Field -->
+        <div class="form-group col-sm-6">
+            {!! Form::label('password', 'Password:') !!}
+            {!! Form::password('password', ['class' => 'form-control']) !!}
+        </div>
+Textarea
+
+        <!-- Textarea Field -->
+        <div class="form-group col-sm-12 col-lg-12">
+            {!! Form::label('textarea', 'Textarea:') !!}
+            {!! Form::textarea('textarea', null, ['class' => 'form-control']) !!}
+        </div>
+Select with value
+
+        <!-- select Field -->
+        {{-- null can be replace with "(isset($model)) ? $model->value : null" --}}
+        <div class="form-group col-sm-12 col-lg-12">
+            {!! Form::label('select', 'Select:') !!}
+            {!! Form::select('size', ['L' => 'Large', 'S' => 'Small'], null, ['class' => 'form-control','placeholder' => 'Choose...']); !!}
+        </div>
+Select with number range
+
+        <!-- select range Field -->
+        <div class="form-group col-sm-12 col-lg-12">
+            {!! Form::label('selectrange', 'Select range:') !!}
+            {!! Form::selectRange('number', 10, 20,null,['class' => 'form-control','placeholder' => 'Choose...']); !!}
+        </div>
+Select with month range
+
+        <!-- select month Field -->
+        <div class="form-group col-sm-12 col-lg-12">
+            {!! Form::label('selectmonth', 'Select month:') !!}
+            {!! Form::selectMonth('month',null,['class' => 'form-control','placeholder' => 'Choose month...']); !!}
+        </div>
+Select with grouping
+
+        <!-- select Group Field -->
+        <div class="form-group col-sm-12 col-lg-12">
+            {!! Form::label('selectgroup', 'Select Group:') !!}
+            {!! Form::select('animal',[
+            'Cats' => ['leopard' => 'Leopard'],
+            'Dogs' => ['spaniel' => 'Spaniel'],
+        ],null,['class' => 'form-control','placeholder' => 'Choose...']); !!}
+        </div>
+Checkbox
+
+        <!-- Checkbox Field -->
+        <div class="form-group col-sm-12 col-lg-12">
+            {!! Form::label('checkbox', 'Checkbox:',['class' => '']) !!}
+            {!! Form::checkbox('Option 1', 'value1',null,['class' => '']); !!}
+            {!! Form::label('checkbox', 'Checkbox:',['class' => '']) !!}
+            {!! Form::checkbox('Option 1', 'value2',null,['class' => '']); !!}
+        </div>
+Radio
+
+        <!-- Checkbox Field -->
+        <div class="form-group col-sm-12 col-lg-12">
+            {!! Form::label('radio', 'Radio 1:',['class' => '']) !!}
+            {!! Form::radio('Option 1', 'value1',null,['class' => '']); !!}
+            {!! Form::label('radio', 'Radio 2:',['class' => '']) !!}
+            {!! Form::radio('Option 1', 'value2',null,['class' => '']); !!}
+        </div>
