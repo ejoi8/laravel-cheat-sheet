@@ -645,6 +645,7 @@ ___
 # Larvel Collective
 
 Open form
+
         <!-- If your form is going to accept file uploads, add a files option to your array:  -->
         {!! } Form::open(['route' => ['route.name', $user->id]]) !!}
         {!! } Form::open(['action' => ['Controller@method', $user->id]]) !!}
@@ -652,6 +653,7 @@ Open form
         <!-- Close form  -->
         {!! Form::close() !!}
 Token
+
         <!-- Token  -->
         {!! Form::token() !!}
         
