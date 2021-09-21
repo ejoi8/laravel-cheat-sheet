@@ -564,6 +564,167 @@ Generate field from json file. Save in resources/model_schemes/filename.json
           "inIndex": true,
           "inView": true
         },
+        
+Sample for form element (checkbox & radio not working)
+        
+        [
+            {
+                "name": "id",
+                "dbType": "increments",
+                "htmlType": null,
+                "validations": null,
+                "searchable": false,
+                "fillable": false,
+                "primary": true,
+                "inForm": false,
+                "inIndex": false,
+                "inView": false
+            },
+            {
+                "name": "text",
+                "dbType": "string",
+                "htmlType": "text",
+                "validations": "",
+                "searchable": true,
+                "fillable": true,
+                "primary": false,
+                "inForm": true,
+                "inIndex": true,
+                "inView": true
+            },
+            {
+                "name": "email",
+                "dbType": "string",
+                "htmlType": "email",
+                "validations": null,
+                "searchable": true,
+                "fillable": true,
+                "primary": false,
+                "inForm": true,
+                "inIndex": true,
+                "inView": true
+            },
+            {
+                "name": "number",
+                "dbType": "string",
+                "htmlType": "number",
+                "validations": "",
+                "searchable": true,
+                "fillable": true,
+                "primary": false,
+                "inForm": true,
+                "inIndex": true,
+                "inView": true
+            },
+            {
+                "name": "date",
+                "dbType": "timestamp",
+                "htmlType": "date",
+                "validations": "",
+                "searchable": true,
+                "fillable": true,
+                "primary": false,
+                "inForm": true,
+                "inIndex": true,
+                "inView": true
+            },
+            {
+                "name": "file",
+                "dbType": "string",
+                "htmlType": "file",
+                "validations": "",
+                "searchable": true,
+                "fillable": true,
+                "primary": false,
+                "inForm": true,
+                "inIndex": true,
+                "inView": true
+            },
+            {
+                "name": "password",
+                "dbType": "string",
+                "htmlType": "password",
+                "validations": "",
+                "searchable": true,
+                "fillable": true,
+                "primary": false,
+                "inForm": true,
+                "inIndex": true,
+                "inView": true
+            },
+            {
+                "name": "select",
+                "dbType": "string",
+                "htmlType": "select:option1,option2",
+                "validations": "",
+                "searchable": true,
+                "fillable": true,
+                "primary": false,
+                "inForm": true,
+                "inIndex": true,
+                "inView": true
+            },
+            {
+                "name": "radio",
+                "dbType": "string",
+                "htmlType": "radio:option1,option2",
+                "validations": "",
+                "searchable": true,
+                "fillable": true,
+                "primary": false,
+                "inForm": true,
+                "inIndex": true,
+                "inView": true
+            },
+            {
+                "name": "checkbox",
+                "dbType": "string",
+                "htmlType": "checkbox:value1",
+                "validations": "",
+                "searchable": true,
+                "fillable": true,
+                "primary": false,
+                "inForm": true,
+                "inIndex": true,
+                "inView": true
+            },
+            {
+                "name": "textarea",
+                "dbType": "string",
+                "htmlType": "textarea",
+                "validations": "",
+                "searchable": true,
+                "fillable": true,
+                "primary": false,
+                "inForm": true,
+                "inIndex": true,
+                "inView": true
+            },
+            {
+                "name": "created_at",
+                "dbType": "timestamp",
+                "htmlType": null,
+                "validations": null,
+                "searchable": false,
+                "fillable": false,
+                "primary": false,
+                "inForm": false,
+                "inIndex": false,
+                "inView": true
+            },
+            {
+                "name": "updated_at",
+                "dbType": "timestamp",
+                "htmlType": null,
+                "validations": null,
+                "searchable": false,
+                "fillable": false,
+                "primary": false,
+                "inForm": false,
+                "inIndex": false,
+                "inView": true
+            }
+        ]
 
 Generate New module from existing table without datatable
 
