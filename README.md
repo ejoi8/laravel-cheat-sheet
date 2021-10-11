@@ -655,7 +655,7 @@ Sample for form element (checkbox & radio not working)
             {
                 "name": "select",
                 "dbType": "string",
-                "htmlType": "select:option1,option2",
+                "htmlType": "select,option1:val1,option2:val2",
                 "validations": "",
                 "searchable": true,
                 "fillable": true,
