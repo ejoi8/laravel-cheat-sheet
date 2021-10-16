@@ -353,6 +353,8 @@ MAKE NULLABLE
 
 Clear all cache memory
 
+    php artisan optimize:clear
+    
     php artisan cache:clear  
     php artisan config:clear
     php artisan config:cache  
