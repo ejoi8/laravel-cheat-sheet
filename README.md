@@ -805,6 +805,72 @@ app/datatables/ModuleDatatables.php
         }
 ___   
 
+## Datatable hide column dynamically (infyom adminLTE template)
+___
+
+view/$MODULE_VIEW_FOLDER/index.blade.php
+
+
+            <select name="column_name" id="column_name" class="form-control selectpicker" multiple>
+                <option value="0">action</option>
+                <option value="1">id</option>
+                <option value="2">qrcode</option>
+                <option value="3">name</option>
+                <option value="4">nokp</option>
+                <option value="5">tel</option>
+                <option value="6">address</option>
+                <option value="7">photo</option>
+                <option value="8">vaccine_photo</option>
+                <option value="9">email</option>
+                <option value="10">stage_photo_status_id</option>
+                <option value="11">studio_photo_status_id</option>
+                <option value="12">course_id</option>
+                <option value="13">course_code</option>
+                <option value="14">cert_level_id</option>
+                <option value="15">program_type_id</option>
+                <option value="16">status_kehadiran_id</option>
+                <option value="17">occupation</option>
+                <option value="18">robe_set_id</option>
+                <option value="19">robe_size_id</option>
+                <option value="20">robe_pickup_status_id</option>
+                <option value="21">robe_dropoff_status_id</option>
+                <option value="22">ref_no</option>
+                <option value="23">vaccine_status_id</option>
+                <option value="24">status_kehadiran_event_id</option>
+                <option value="25">status_permohonan_id</option>
+            </select>
+
+        @push('third_party_stylesheets')
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+        @endpush
+
+
+        @push('third_party_scripts')
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>>
+            <script type="text/javascript">
+                $(document).ready(function() {
+
+                var table = window.LaravelDataTables["dataTableBuilder"];
+                $('#column_name').change(function(){
+
+                    var all_column = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"]
+
+                    var remove_column = $('#column_name').val();
+
+                    var remaining_column = all_column.filter(function(obj) { return remove_column.indexOf(obj) == -1; });
+
+                    table.columns(remove_column).visible(false);
+
+                    table.columns(remaining_column).visible(true);
+
+                });
+
+            });
+            </script>
+        @endpush
+
+___
+
 # Larvel Collective
 
 Open form
