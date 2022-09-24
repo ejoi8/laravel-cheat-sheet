@@ -490,6 +490,31 @@ Upload multiple file controller
           }
 
         }
+
+Upload to temporary folder (laravel daily)
+        
+        // create model & table for temporary file
+        php artisan make:model TemporaryFile -m
+        
+        // schema only add the following
+        $table->string('folder');
+        $table->string('filename');
+        
+        // logic
+        if ($request->hasFile('media') ) {
+            $file = $request->file('media');
+            $filename = $file->getClientOriginalName();
+            $folder = uniqid().'-'.now()->timestamp;
+            $file->storeAs('media/tmp/'.$folder,$filename) ;
+
+            TemporaryFile::create([
+                'folder' => $folder,
+                'filename' => $filename,
+            ]);
+            
+            return $folder ;
+        }
+        
         
 ---  
             
