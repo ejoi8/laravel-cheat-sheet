@@ -1033,3 +1033,47 @@ Radio
             {!! Form::label('radio', 'Radio 2:',['class' => '']) !!}
             {!! Form::radio('Option 1', 'value2',null,['class' => '']); !!}
         </div>
+        
+        
+___   
+
+## Many to many attach
+___
+        
+        // sample data structure schema
+        $user->roles()->attach([
+            1 => ['expires' => $expires],
+            2 => ['expires' => $expires],
+        ]);
+        
+        
+        // original data from request ($request->product)
+        [
+            {
+                "id": 3,
+                "name": "PowerPoint ohsem",
+                "slug": "power-point-ohsem",
+                "desc": "lorem ipsum amet",
+                "SKU": "",
+                "category": "Power Point",
+                "price": "69.000",
+                "price_sale": "0.000",
+                "status_id": 4,
+                "qty": 13
+            }
+        ]
+        
+        // from request convert to collection for better data handling
+        $product_post = collect(json_decode($request->product));
+        
+        // mapping data base on sample above
+        $qtyAttach = $product_post->keyBy('id')
+            ->map(function ($item, $key) {
+                return [
+                    'qty' =>$item->qty,
+                ];
+            });
+        
+        $order->products()->attach($qtyAttach);
+
+
