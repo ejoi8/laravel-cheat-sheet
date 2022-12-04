@@ -1110,3 +1110,51 @@ ___
         $order->products()->attach($qtyAttach);
 
 
+# Value to ref table
+
+```php
+// https://www.youtube.com/watch?v=iJxawP55s6I
+
+// METHOD ONE - if data contains 1,000,000 , update city will run 1,000,000 times
+
+$cities = [];
+
+foreach (User::all() as $user) {
+    if (!array_key_exists($user->FIELD, $cities)) {
+        $city = City::create(['name' => $user->city]);
+        $cities[$user->city] = $city->id;
+    }
+
+    $user->update(['city_id' => $cities[$user->city]]);
+}
+
+// METHOD TWO - update will run depends on city instead of total users
+
+$cities = [];
+
+foreach (User::all() as $user) {
+    if (!array_key_exists($user->FIELD, $cities)) {
+        $city = City::create(['name' => $user->city]);
+        $cities[$user->city] = $city->id;
+    }
+}
+
+foreach ($cities as $cityName => $cityId) {
+    User::where('city', $cityName)->update(['city_id' => $cityId]);
+}
+
+
+// METHOD THREE - ideal if faced PHP timeout
+
+User::chunk(1000, function($users) use (&$cities) {
+    foreach ($users as $user) {
+        if (!array_key_exists($user->FIELD, $cities)) {
+            $city = City::create(['name' => $user->city]);
+            $cities[$user->city] = $city->id;
+        }
+    
+        $user->update(['city_id' => $cities[$user->city]]);
+    }
+})
+
+```
